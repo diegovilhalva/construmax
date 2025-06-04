@@ -1,7 +1,8 @@
 import AboutIntro from "../components/AboutIntro"
 import Hero from "../components/Hero"
-import Navbar from "../components/Navbar"
+import OngoingProjects from "../components/OnGoingProjects"
 import ServicesSection from "../components/ServicesSection"
+import WhyChooseUs from "../components/WhyChooseUs"
 
 
 const Home = () => {
@@ -13,6 +14,8 @@ const Home = () => {
             <Hero />
             <AboutIntro />
             <ServicesSection />
+            <WhyChooseUs />
+            <OngoingProjects />
         </main>
     </div>
   )

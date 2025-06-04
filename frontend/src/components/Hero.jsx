@@ -15,10 +15,10 @@ const Hero = () => {
             setInterval(() => {
                 if (activeSlide === slide1) {
                     slide1.style.opacity = '0';
-                    slide2.style.opacity = '100';
+                    slide2.style.opacity = '0.8';
                     activeSlide = slide2;
                 } else {
-                    slide1.style.opacity = '100';
+                    slide1.style.opacity = '0.8';
                     slide2.style.opacity = '0';
                     activeSlide = slide1;
                 }
@@ -38,7 +38,7 @@ const Hero = () => {
                     <img
                         src={heroImage}
                         alt="Construmax - Construções de Alto Padrão"
-                        className="w-full h-full object-cover absolute inset-0 opacity-100 transition-opacity duration-1000"
+                        className="w-full h-full object-cover absolute inset-0  opacity-80 transition-opacity duration-1000"
                     />
                     <img
                         src={hero2Image}
