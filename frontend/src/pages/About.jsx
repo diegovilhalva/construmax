@@ -156,7 +156,7 @@ Hoje, com mais de 200 colaboradores e 500 projetos concluídos, mantemos o mesmo
 
             <div className="relative">
               <div className="rounded-xl overflow-hidden shadow-2xl">
-                <img src={teamImage} className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96" />
+                <img src={teamImage} className="bg-gray-200 object-cover border-2 border-dashed rounded-xl w-full h-96" />
               </div>
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary rounded-lg z-10"></div>
             </div>
