@@ -3,7 +3,8 @@ import building1 from "../assets/images/construction4.jpg"
 import building2 from "../assets/images/construction4 (2).jpg"
 import building3 from "../assets/images/construction12121.jpg"
 import building4  from "../assets/images/construction-work-2698790_1280.jpg"
-import CEO from "../assets/images/author-2.jpg"
+import CEO from "../assets/images/ceo.jpg"
+
 const WhyChooseUs = () => {
   return (
     <section className="py-16 lg:py-24 bg-gray-50">
@@ -103,7 +104,7 @@ const WhyChooseUs = () => {
                 satisfação total do cliente."
               </p>
               <div className="mt-4 flex items-center">
-                <img src={CEO} className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16" />
+                <img src={CEO} className="bg-gray-200 object-cover border-2 border-dashed rounded-xl w-16 h-16" />
                 <div className="ml-4">
                   <p className="font-bold text-gray-900">Carlos Silva</p>
                   <p className="text-gray-600">Fundador e CEO</p>

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
-
+import image1 from "../assets/images/construction8.jpg"
+import image2 from "../assets/images/construction1.jpg"
+import image3 from  "../assets/images/construction10.jpg"
 const BlogSection = () => {
+
   // Dados de exemplo (serão substituídos por dados do Laravel)
   const blogPosts = [
     {
@@ -9,7 +12,7 @@ const BlogSection = () => {
       title: 'Tendências em Construção Sustentável para 2024',
       excerpt: 'Descubra as inovações e materiais que estão revolucionando a construção ecológica e como aplicá-las em seus projetos.',
       date: '15 Março, 2024',
-      image: '/blog-post-1.jpg',
+      image: image1,
       category: 'Sustentabilidade',
       readingTime: '4 min leitura'
     },
@@ -18,7 +21,7 @@ const BlogSection = () => {
       title: 'Como Planejar uma Reforma sem Surpresas',
       excerpt: 'Guia completo para evitar imprevistos e garantir que sua reforma seja concluída dentro do prazo e orçamento planejados.',
       date: '8 Março, 2024',
-      image: '/blog-post-2.jpg',
+      image: image2,
       category: 'Reformas',
       readingTime: '6 min leitura'
     },
@@ -27,7 +30,7 @@ const BlogSection = () => {
       title: 'A Importância da Manutenção Predial Preventiva',
       excerpt: 'Saiba como a manutenção regular pode prolongar a vida útil de seu prédio e evitar custos elevados com reparos emergenciais.',
       date: '1 Março, 2024',
-      image: '/blog-post-3.jpg',
+      image: image3,
       category: 'Manutenção',
       readingTime: '5 min leitura'
     }
@@ -55,7 +58,7 @@ const BlogSection = () => {
               className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
             >
               <div className="relative h-56">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full" />
+                <img src={post.image} className="bg-gray-200 object-cover border-2 border-dashed rounded-xl w-full h-full" />
                 <div className="absolute top-4 right-4">
                   <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
                     {post.category}
