@@ -46,6 +46,7 @@ const Hero = () => {
                         className="w-full h-full object-cover absolute inset-0 opacity-0 transition-opacity duration-1000"
                         id="hero-slide-2"
                     />
+                      {/*<div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/20"></div>*/}
                 </div>
             </div>
 

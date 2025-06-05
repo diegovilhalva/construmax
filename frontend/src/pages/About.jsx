@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
-import aboutHero from '../assets/images/about-hero.jpg';
+import aboutHero from '../assets/images/about-hero (1).jpg';
 import historyImage from '../assets/images/history.jpg';
-import teamImage from '../assets/images/team-photo.jpg';
+import teamImage from '../assets/images/team-photo (1).jpg';
 import CEO from "../assets/images/ceo.jpg"
-import member1 from  "../assets/images/member-1.jpg"
-import member2  from "../assets/images/pexels-pixabay-220453.jpg"
+import member1 from "../assets/images/member-1.jpg"
+import member2 from "../assets/images/pexels-pixabay-220453.jpg"
 import member3 from "../assets/images/member-3.jpg"
 const About = () => {
   // Dados da empresa (serão substituídos por dados do Laravel posteriormente)
@@ -98,9 +98,9 @@ Hoje, com mais de 200 colaboradores e 500 projetos concluídos, mantemos o mesmo
           <img
             src={aboutHero}
             alt="Nossa História"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover opacity-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/20"></div>
+         {/*<div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/20"></div>*/}
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -241,7 +241,7 @@ Hoje, com mais de 200 colaboradores e 500 projetos concluídos, mantemos o mesmo
 
           <div className="relative rounded-2xl overflow-hidden bg-gray-900 text-white">
             <div className="absolute inset-0">
-              <img src={historyImage}  className="bg-gray-200 object-cover border-2 border-dashed rounded-xl w-full h-full" />
+              <img src={historyImage} className="bg-gray-200 object-cover border-2 border-dashed rounded-xl w-full h-full" />
               <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/30"></div>
             </div>
 

@@ -79,8 +79,8 @@ const Services = () => {
       {/* Hero Section */}
       <section className="relative bg-gray-900 py-24 md:py-32">
         <div className="absolute inset-0 z-0">
-          <img src={servicesHero} className="bg-gray-200 border-2 border-dashed w-full h-full" />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/30"></div>
+          <img src={servicesHero} className=" w-full h-full opacity-80" />
+          {/*<div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/30"></div>*/}
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
