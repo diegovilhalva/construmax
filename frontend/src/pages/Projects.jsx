@@ -6,6 +6,7 @@ import image3 from "../assets/images/factory.jpg"
 import image4 from "../assets/images/hospital.jpg"
 import image5 from "../assets/images/condominio (1).jpg"
 import image6 from "../assets/images/school.jpg"
+import hero from  "../assets/images/projects-hero.jpg"
 const Projects = () => {
   // Estados para controle da interface
   const [activeFilter, setActiveFilter] = useState('all');
@@ -164,8 +165,8 @@ const Projects = () => {
       {/* Hero Section */}
       <section className="relative bg-gray-900 py-24 md:py-32">
         <div className="absolute inset-0 z-0">
-          <div className="bg-gray-200 border-2 border-dashed w-full h-full" />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/30"></div>
+          <img src={hero} className="object-cover opacity-100  w-full h-full" />
+          {/*<div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-primary/30"></div>*/}
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
