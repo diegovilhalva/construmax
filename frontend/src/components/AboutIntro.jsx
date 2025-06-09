@@ -77,12 +77,12 @@ const AboutIntro = () => {
                 </svg>
               </Link>
               
-              <a 
-                href="#projects" 
+              <Link 
+                to="/projects" 
                 className="bg-white text-gray-900 border-2 border-primary font-bold py-3 px-6 rounded-lg transition duration-300 text-lg inline-flex items-center hover:bg-primary/10"
               >
                 Veja Nossos Projetos
-              </a>
+              </Link>
             </div>
           </div>
         </div>
