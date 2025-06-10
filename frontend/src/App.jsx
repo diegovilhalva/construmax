@@ -8,12 +8,14 @@ import Contact from "./pages/Contact"
 import Login from "./pages/Login"
 import MainLayout from "./layouts/MainLayout"
 import AdminLayout from "./layouts/AdminLayout"
+import Dashboard from "./pages/Dashboard"
+import RequireAuth from "./components/RequireAuth"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-       
+
         <Route
           path="/"
           element={
@@ -67,11 +69,20 @@ function App() {
         <Route
           path="/admin/login"
           element={
+
             <AdminLayout>
               <Login />
             </AdminLayout>
           }
         />
+        <Route path="/admin/dashboard"
+          element={
+            <RequireAuth>
+              <AdminLayout>
+                <Dashboard />
+              </AdminLayout>
+            </RequireAuth>
+          } />
       </Routes>
     </BrowserRouter>
   )

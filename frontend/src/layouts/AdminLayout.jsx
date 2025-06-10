@@ -1,6 +1,7 @@
 const AdminLayout = ({ children }) => {
   return (
     <>
+      
       {children}
     </>
   )

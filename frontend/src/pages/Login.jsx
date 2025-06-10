@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from 'react-router';
 import loginHero from '../assets/images/login-hero.jpg';
 import axios from "axios"
+import { AuthContext } from '../context/Auth';
 
 
 const Login = () => {
@@ -10,8 +11,10 @@ const Login = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-
-
+    const {login,user} = useContext(AuthContext)
+    if (user) {
+        navigate("/admin/dashboard")
+    }
 
     const onSubmit = async (data) => {
         setError('');
@@ -28,7 +31,12 @@ const Login = () => {
 
             
             if (res.data.status) {
-                
+                const userInfo ={
+                    id: res.data.user.id,
+                    token:res.data.token
+                }
+
+                login(userInfo)
                 navigate('/admin/dashboard');
             } else {
                 setError('Credenciais inválidas. Por favor, tente novamente.');
