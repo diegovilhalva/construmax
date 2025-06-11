@@ -8,6 +8,7 @@ import DashboardProjects from '../components/dashboard/DashboardProjects';
 import DashboardBlog from '../components/dashboard/DashboardBlog';
 import DashboardTestimonials from '../components/dashboard/DashboardTestimonials';
 import DashboardTeam from '../components/dashboard/DashboardTeam';
+import Loading from '../components/Loading';
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -94,11 +95,7 @@ const Dashboard = () => {
   // Renderizar conteúdo baseado na aba ativa
   const renderContent = () => {
     if (loading) {
-      return (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </div>
-      );
+      return <Loading />
     }
 
     switch (activeTab) {

@@ -10,10 +10,13 @@ import MainLayout from "./layouts/MainLayout"
 import AdminLayout from "./layouts/AdminLayout"
 import Dashboard from "./pages/Dashboard"
 import RequireAuth from "./components/RequireAuth"
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
 
         <Route

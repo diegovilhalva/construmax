@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from 'react-router';
 import loginHero from '../assets/images/login-hero.jpg';
@@ -11,10 +11,13 @@ const Login = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const {login,user} = useContext(AuthContext)
-    if (user) {
-        navigate("/admin/dashboard")
-    }
+    const { login, user } = useContext(AuthContext)
+    useEffect(() => {
+        if (user) {
+           console.log(user)
+           navigate("/admin/dashboard")
+        }
+    }, [user])
 
     const onSubmit = async (data) => {
         setError('');
@@ -29,11 +32,11 @@ const Login = () => {
                 }
             })
 
-            
+
             if (res.data.status) {
-                const userInfo ={
+                const userInfo = {
                     id: res.data.user.id,
-                    token:res.data.token
+                    token: res.data.token
                 }
 
                 login(userInfo)

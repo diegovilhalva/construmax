@@ -5,7 +5,6 @@ import { AuthContext } from "../context/Auth"
 
 const RequireAuth = ({ children }) => {
   const { user } = useContext(AuthContext)
-
   if (!user) {
     return <Navigate to="/admin/login" replace />
   }
