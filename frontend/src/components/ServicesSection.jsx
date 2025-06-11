@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router';
 import reformaImg from '../assets/images/construction1.jpg';
 import industrialImg from '../assets/images/construction2.jpg';
 import civilImg from '../assets/images/construction7.jpg';
 import publicasImg from '../assets/images/construction122 (2).jpg';
-
+import { useEffect } from 'react';
+import axios from 'axios';
 const ServicesSection = () => {
-  const services = [
+  const [services,setServices] = useState([])
+ /* const services = [
     {
       id: 1,  
       title: 'Reformas e Renovações',
@@ -39,7 +41,16 @@ const ServicesSection = () => {
       link: '/services',
       features: ['Pontes e viadutos', 'Escolas e hospitais', 'Saneamento básico', 'Infraestrutura urbana']
     }
-  ];
+  ];*/
+  useEffect(() => {
+    const fetchServices = async () => {
+      const res = await axios.get('http://localhost:8000/api/services')
+      setServices(res.data)
+    }
+    fetchServices()
+  },[])
+  console.log(services)
+
 
   return (
     <section className="py-16 lg:py-24 bg-gray-50">
@@ -85,14 +96,14 @@ const ServicesSection = () => {
                     {service.features.map((feature, index) => (
                       <li key={index} className="flex items-center">
                         <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mr-3"></span>
-                        <span className="text-gray-700">{feature}</span>
+                        <span className="text-gray-700">{feature.feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 
                 <Link 
-                  to={service.link}
+                  to={"/services"}
                   className="inline-flex items-center text-primary font-semibold group-hover:text-primary-dark transition-colors"
                 >
                   Saiba mais sobre este serviço

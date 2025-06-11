@@ -18,7 +18,7 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
             setDescription(service.description || '');
             setDetailedDescription(service.detailed_description || '');
             setFeatures(service.features?.map(f => f.feature) || ['']);
-            setProcess(service.processSteps || [{ step: 1, title: '', description: '' }]);
+            setProcess(service.process_steps || [{ step: 1, title: '', description: '' }]);
             setImageFile(null);
         } else {
             setTitle('');

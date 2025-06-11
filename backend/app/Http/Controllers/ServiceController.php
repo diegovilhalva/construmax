@@ -16,7 +16,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::with(['features', 'processSteps'])->orderBy('created_at', 'desc')->get();
+
+        return response()->json($services);
     }
 
     /**
@@ -142,7 +144,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        
     }
 
     /**

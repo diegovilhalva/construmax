@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ServiceModal from '../modals/ServiceModal'
 import Loading from '../Loading';
+import axios from 'axios';
+import { AuthContext } from '../../context/Auth';
 
-const DashboardServices = ({services}) => {
-  //const [services, setServices] = useState([]);
+const DashboardServices = ( ) => {
+  const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingService, setEditingService] = useState(null);
+  const { user } = useContext(AuthContext)
 
   // Pega os serviços do backend na montagem do componente
   useEffect(() => {
@@ -16,9 +19,16 @@ const DashboardServices = ({services}) => {
   const fetchServices = async () => {
     try {
       setLoading(true);
-  
-    ;
-      setServices(data);
+      const res = await axios.get("http://localhost:8000/api/services", {
+        headers: {
+          "Content-Type": "application/json", // Estava escrito errado como "aplication"
+          "Authorization": `Bearer ${user.token}`
+        }
+
+      })
+
+      console.log(res.data)
+      setServices(res.data);
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -47,7 +57,7 @@ const DashboardServices = ({services}) => {
       if (!res.ok) throw new Error('Erro ao excluir serviço');
       setServices((prev) => prev.filter((service) => service.id !== id));
     } catch (error) {
-        
+
     }
   };
 
@@ -138,17 +148,16 @@ const DashboardServices = ({services}) => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      service.status === 'Ativo'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}
+                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${service 
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-red-100 text-red-800'
+                      }`}
                   >
-                    {service.status}
+                    { service ? "Ativo" : "Inativo"}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(service.created).toLocaleDateString()}
+                  {new Date(service.created_at).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                   <button

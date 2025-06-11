@@ -9,8 +9,10 @@ import DashboardBlog from '../components/dashboard/DashboardBlog';
 import DashboardTestimonials from '../components/dashboard/DashboardTestimonials';
 import DashboardTeam from '../components/dashboard/DashboardTeam';
 import Loading from '../components/Loading';
+import axios from 'axios';
 
 const Dashboard = () => {
+  const { user } = useContext(AuthContext)
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [loading, setLoading] = useState(true);
@@ -28,15 +30,17 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Simular chamada à API
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        //await new Promise(resolve => setTimeout(resolve, 1000));
 
-        
-        setServices([
-          { id: 1, title: 'Construção Civil', status: 'Ativo', created: '2023-05-15' },
-          { id: 2, title: 'Reformas e Renovações', status: 'Ativo', created: '2023-06-20' },
-          { id: 3, title: 'Construção Industrial', status: 'Ativo', created: '2023-07-10' },
-          { id: 4, title: 'Obras Públicas', status: 'Inativo', created: '2023-04-05' },
-        ]);
+        const servicesReq = await axios.get("http://localhost:8000/api/services", {
+          headers: {
+            "Content-Type": "application/json", // Estava escrito errado como "aplication"
+            "Authorization": `Bearer ${user.token}`
+          }
+
+        })
+
+        setServices(servicesReq.data)
 
         // Dados de exemplo para projetos
         setProjects([
@@ -85,8 +89,16 @@ const Dashboard = () => {
   };
 
   // Estatísticas do dashboard
+  const getRecentCount = (items, days = 7) => {
+    const now = new Date();
+    const pastDate = new Date(now);
+    pastDate.setDate(now.getDate() - days);
+
+    return items.filter(item => new Date(item.created_at) >= pastDate).length;
+  };
+  const serviceRecentCount = getRecentCount(services, 7);
   const stats = [
-    { title: 'Serviços', value: services.length, change: '+2 recentes' },
+    { title: 'Serviços', value: services.length, change: `+${serviceRecentCount} recentes` },
     { title: 'Projetos', value: projects.length, change: '+5 em andamento' },
     { title: 'Artigos', value: blogPosts.length, change: '+3 novos' },
     { title: 'Depoimentos', value: testimonials.length, change: '+10 aprovados' }

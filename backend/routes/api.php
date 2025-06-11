@@ -19,3 +19,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post("/logout", [AuthenticationController::class, 'logout']);
     Route::post("/services/create",[ServiceController::class,'store']);
 });
+Route::get("/services",[ServiceController::class,'index']);
