@@ -11,7 +11,7 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
     const [features, setFeatures] = useState(['']);
     const [process, setProcess] = useState([{ step: 1, title: '', description: '' }]);
     const [imageFile, setImageFile] = useState(null);
-
+    const [loading,setLoading] = useState(false)
     useEffect(() => {
         if (service) {
             setTitle(service.title || '');
@@ -94,6 +94,7 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
         }
 
         try {
+            setLoading(true)
             const url = service
                 ? `http://localhost:8000/api/services/${service.id}`
                 : `http://localhost:8000/api/services/create`;
@@ -119,7 +120,7 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
             onClose();
         } catch (error) {
             console.error('Erro completo:', error);
-
+            setLoading(false)
             if (error.code === 'ECONNABORTED') {
                 toast.error('Tempo de conexão excedido. Tente uma imagem menor.');
             } else if (error.response?.status === 413) {
@@ -136,6 +137,8 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
             } else {
                 toast.error('Erro ao salvar serviço: ' + (error.message || 'Tente novamente mais tarde'));
             }
+        }finally{
+            setLoading(false)
         }
     };
 
@@ -302,6 +305,7 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
                             Cancelar
                         </button>
                         <button
+                            disabled={loading}
                             type="submit"
                             className="px-4 py-2 rounded bg-primary text-white hover:bg-primary-dark"
                         >

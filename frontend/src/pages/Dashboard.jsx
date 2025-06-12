@@ -43,12 +43,13 @@ const Dashboard = () => {
         setServices(servicesReq.data)
 
         // Dados de exemplo para projetos
-        setProjects([
-          { id: 1, title: 'Residencial Alto das Colinas', status: 'Em andamento', progress: 65 },
-          { id: 2, title: 'Centro Comercial Moderna', status: 'Em andamento', progress: 45 },
-          { id: 3, title: 'Fábrica Industrial Técnica', status: 'Concluído', progress: 100 },
-          { id: 4, title: 'Hospital Municipal', status: 'Concluído', progress: 100 },
-        ]);
+        const resProjects = await axios.get("http://localhost:8000/api/projects", {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        setProjects(resProjects.data)
 
         // Dados de exemplo para artigos do blog
         setBlogPosts([
@@ -72,10 +73,12 @@ const Dashboard = () => {
           { id: 4, name: 'Juliana Santos', position: 'Diretora de Engenharia', department: 'Engenharia' },
         ]);
 
-        
+
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
         setLoading(false);
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -96,10 +99,14 @@ const Dashboard = () => {
 
     return items.filter(item => new Date(item.created_at) >= pastDate).length;
   };
+  
+
+  const projectsOnGoingCount = projects.filter((project) => project.status === "Em andamento").length
+
   const serviceRecentCount = getRecentCount(services, 7);
   const stats = [
     { title: 'Serviços', value: services.length, change: `+${serviceRecentCount} recentes` },
-    { title: 'Projetos', value: projects.length, change: '+5 em andamento' },
+    { title: 'Projetos', value: projects.length, change: `${projectsOnGoingCount} Em andamento` },
     { title: 'Artigos', value: blogPosts.length, change: '+3 novos' },
     { title: 'Depoimentos', value: testimonials.length, change: '+10 aprovados' }
   ];
@@ -132,6 +139,7 @@ const Dashboard = () => {
         return null;
     }
   };
+
 
   return (
     <div className="flex h-screen bg-gray-100">
