@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\adminDashboardController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ServiceController;
+use App\Models\ServiceProcessStep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::post("/logout", [AuthenticationController::class, 'logout']);
     Route::post("/services/create",[ServiceController::class,'store']);
+    Route::put("/services/{service}",[ServiceController::class,'update']);
+    Route::delete("/services/{service}",[ServiceController::class,'destroy']);
 });
 Route::get("/services",[ServiceController::class,'index']);

@@ -69,7 +69,6 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
-
         if (detailedDescription) {
             formData.append('detailed_description', detailedDescription);
         }
@@ -85,7 +84,6 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
         });
 
         if (imageFile) {
-            // Comprimir imagem antes de enviar
             try {
                 const compressedFile = await compressImage(imageFile);
                 formData.append('image', compressedFile);
@@ -96,20 +94,27 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
         }
 
         try {
-            const res = await axios.post('http://localhost:8000/api/services/create', formData, {
+            const url = service
+                ? `http://localhost:8000/api/services/${service.id}`
+                : `http://localhost:8000/api/services/create`;
+
+            if (service) {
+                formData.append('_method', 'PUT'); // Para Laravel entender como PUT
+            }
+
+            const res = await axios.post(url, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${user.token}`
+                    'Authorization': `Bearer ${user.token}`,
                 },
-                timeout: 180000, // 3 minutos timeout
+                timeout: 180000,
                 onUploadProgress: (progressEvent) => {
                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                     console.log(`Upload: ${percentCompleted}%`);
-                    // Atualizar UI com progresso se necessário
                 }
             });
 
-            toast.success('Serviço cadastrado com sucesso!');
+            toast.success(service ? 'Serviço atualizado com sucesso!' : 'Serviço cadastrado com sucesso!');
             onSave(res.data);
             onClose();
         } catch (error) {
@@ -133,6 +138,7 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
             }
         }
     };
+
 
     // Função para comprimir imagens
     const compressImage = async (file) => {
@@ -267,6 +273,12 @@ const ServiceModal = ({ open, onClose, onSave, service }) => {
                             + Adicionar step
                         </button>
                     </div>
+                    {service?.image && (
+                        <div className="mb-4">
+                            <label className="block font-medium mb-1">Imagem atual</label>
+                            <img src={service.image} alt="Imagem atual" className="h-40 rounded border object-contain" />
+                        </div>
+                    )}
 
                     <div className="mb-4">
                         <label className="block font-medium mb-1">Imagem</label>

@@ -72,7 +72,7 @@ const Dashboard = () => {
           { id: 4, name: 'Juliana Santos', position: 'Diretora de Engenharia', department: 'Engenharia' },
         ]);
 
-        setLoading(false);
+        
       } catch (error) {
         console.error('Erro ao carregar dados:', error);
         setLoading(false);
@@ -116,7 +116,7 @@ const Dashboard = () => {
 
 
       case 'services':
-        return <DashboardServices services={services} />
+        return <DashboardServices />
       case 'projects':
         return <DashboardProjects projects={projects} />
 

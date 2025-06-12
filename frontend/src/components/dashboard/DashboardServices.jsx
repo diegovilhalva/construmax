@@ -3,8 +3,9 @@ import ServiceModal from '../modals/ServiceModal'
 import Loading from '../Loading';
 import axios from 'axios';
 import { AuthContext } from '../../context/Auth';
+import { toast } from 'react-toastify';
 
-const DashboardServices = ( ) => {
+const DashboardServices = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -51,13 +52,18 @@ const DashboardServices = ( ) => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`/api/services/${id}`, {
-        method: 'DELETE',
+      await axios.delete(`http://localhost:8000/api/services/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${user.token}`
+        }
       });
-      if (!res.ok) throw new Error('Erro ao excluir serviço');
-      setServices((prev) => prev.filter((service) => service.id !== id));
-    } catch (error) {
 
+      setServices((prev) => prev.filter((service) => service.id !== id));
+      toast.success("Serviço excluído com sucesso!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao excluir serviço.");
     }
   };
 
@@ -148,12 +154,12 @@ const DashboardServices = ( ) => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
-                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${service 
+                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${service
                       ? 'bg-green-100 text-green-800'
                       : 'bg-red-100 text-red-800'
                       }`}
                   >
-                    { service ? "Ativo" : "Inativo"}
+                    {service ? "Ativo" : "Inativo"}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
