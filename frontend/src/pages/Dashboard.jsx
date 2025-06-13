@@ -59,11 +59,13 @@ const Dashboard = () => {
         ]);
 
         // Dados de exemplo para depoimentos
-        setTestimonials([
-          { id: 1, client: 'Carlos Mendonça', project: 'Residencial Green View', rating: 5, status: 'Aprovado' },
-          { id: 2, client: 'Fernanda Oliveira', project: 'Shopping Center Norte', rating: 4, status: 'Aprovado' },
-          { id: 3, client: 'Ricardo Silva', project: 'Escola Técnica', rating: 5, status: 'Pendente' },
-        ]);
+        const resTestimonials = await axios.get("http://localhost:8000/api/testimonials",{
+          headers:{
+            "Content-Type":"application/json"
+          }
+        })
+
+        setTestimonials(resTestimonials.data)
 
         // Dados de exemplo para equipe
         setTeamMembers([
@@ -102,13 +104,14 @@ const Dashboard = () => {
   
 
   const projectsOnGoingCount = projects.filter((project) => project.status === "Em andamento").length
-
+  const approvedTestimonials = testimonials.filter((t) => t.status === "aprovado")
   const serviceRecentCount = getRecentCount(services, 7);
+
   const stats = [
     { title: 'Serviços', value: services.length, change: `+${serviceRecentCount} recentes` },
     { title: 'Projetos', value: projects.length, change: `${projectsOnGoingCount} Em andamento` },
     { title: 'Artigos', value: blogPosts.length, change: '+3 novos' },
-    { title: 'Depoimentos', value: testimonials.length, change: '+10 aprovados' }
+    { title: 'Depoimentos', value: testimonials.length, change: `+${approvedTestimonials.length} aprovados` }
   ];
 
   // Renderizar conteúdo baseado na aba ativa

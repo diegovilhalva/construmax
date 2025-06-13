@@ -111,8 +111,7 @@ const OngoingProjects = () => {
                       <div className="text-sm text-gray-600">Investimento</div>
                       <div className="font-bold text-gray-900">{project.investment}</div>
                     </div>
-              
-                    
+                             
                 </div>
                 
                 <Link 

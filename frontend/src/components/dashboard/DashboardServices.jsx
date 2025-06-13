@@ -70,27 +70,12 @@ const DashboardServices = () => {
   const handleSave = async (serviceData) => {
     try {
       if (editingService) {
-        // Editar
-        const res = await fetch(`/api/services/${serviceData.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(serviceData),
-        });
-        if (!res.ok) throw new Error('Erro ao atualizar serviço');
-        const updatedService = await res.json();
         setServices((prev) =>
-          prev.map((s) => (s.id === updatedService.id ? updatedService : s))
+          prev.map((s) => (s.id === serviceData.id ? serviceData : s))
         );
       } else {
-        // Criar
-        const res = await fetch('/api/services', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(serviceData),
-        });
-        if (!res.ok) throw new Error('Erro ao criar serviço');
-        const newService = await res.json();
-        setServices((prev) => [...prev, newService]);
+
+        setServices((prev) => [...prev, serviceData]);
       }
       setModalOpen(false);
     } catch (error) {

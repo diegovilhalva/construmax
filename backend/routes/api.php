@@ -5,6 +5,7 @@ use App\Http\Controllers\adminDashboardController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TestimonialController;
 use App\Models\ServiceProcessStep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post("/projects/create", [ProjectController::class, 'store']);
     Route::put("/projects/{id}", [ProjectController::class, 'update']);
     Route::delete("/projects/{id}", [ProjectController::class, 'destroy']);
+    Route::post('/testimonials/create', [TestimonialController::class, 'store']);
+    Route::put('/testimonials/{id}', [TestimonialController::class, 'update']);
+    Route::delete('/testimonials/{id}',[TestimonialController::class, 'destroy']);
 });
 Route::get("/services", [ServiceController::class, 'index']);
 Route::get("/projects", [ProjectController::class, 'index']);
+Route::get("/testimonials", [TestimonialController::class, 'index']);
