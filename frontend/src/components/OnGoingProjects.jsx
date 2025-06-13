@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import image1  from "../assets/images/construction6.jpg"
 import image2  from "../assets/images/construction2.jpg"
+import axios from 'axios';
 const OngoingProjects = () => {
-
+  const [projects,setProjects] = useState([])
   // Dados dos projetos (serão substituídos por dados do Laravel posteriormente)
-  const projects = [
+ /* const projects = [
     {
       id: 1,
       title: 'Residencial Alto das Colinas',
@@ -24,8 +25,19 @@ const OngoingProjects = () => {
       description: 'Complexo comercial com 5 andares, cinema, praça de alimentação e estacionamento para 500 carros.',
       image:  image2
     }
-  ];
+  ];*/
 
+    useEffect(() => {
+    (async function fetchProjects() {
+      try {
+        const res = await axios.get("http://localhost:8000/api/projects")
+        setProjects(res.data)
+      } catch (error) {
+        toast.error("Erro ao carregar projetos")
+      }
+    })()
+  }, [])
+  const onGoingProjects =  projects.filter(p => p.status === "Em andamento" && p.progress < 70)
   return (
     <section className="py-16 lg:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,7 +54,7 @@ const OngoingProjects = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {projects.map((project) => (
+          {onGoingProjects.map((project) => (
             <div 
               key={project.id}
               className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
@@ -82,17 +94,25 @@ const OngoingProjects = () => {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  {[
-                    { label: 'Início', value: 'Jan/2024' },
-                    { label: 'Previsão', value: 'Dez/2026' },
-                    { label: 'Área', value: '12.500m²' },
-                    { label: 'Investimento', value: 'R$ 82M' }
-                  ].map((item, index) => (
-                    <div key={index} className="text-center bg-gray-50 p-3 rounded-lg">
-                      <div className="text-sm text-gray-600">{item.label}</div>
-                      <div className="font-bold text-gray-900">{item.value}</div>
+                  
+                    <div  className="text-center bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm text-gray-600">Início</div>
+                      <div className="font-bold text-gray-900">{new Date(project.start_date).toLocaleDateString("pt-BR",{month:"short",year:"numeric",})}</div>
                     </div>
-                  ))}
+                     <div  className="text-center bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm text-gray-600">Previsão</div>
+                      <div className="font-bold text-gray-900">{new Date(project.end_date).toLocaleDateString("pt-BR",{month:"short",year:"numeric",})}</div>
+                    </div>
+                     <div  className="text-center bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm text-gray-600">Área</div>
+                      <div className="font-bold text-gray-900">{project.area}</div>
+                    </div>
+                      <div  className="text-center bg-gray-50 p-3 rounded-lg">
+                      <div className="text-sm text-gray-600">Investimento</div>
+                      <div className="font-bold text-gray-900">{project.investment}</div>
+                    </div>
+              
+                    
                 </div>
                 
                 <Link 

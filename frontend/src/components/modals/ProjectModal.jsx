@@ -150,7 +150,7 @@ const ProjectModal = ({ open, onClose, onSave, project }) => {
                         <label className="block font-medium mb-1">Imagem</label>
                         <input type="file" accept="image/*" onChange={e => setImage(e.target.files[0])} className="w-full" />
                         {image && (
-                            <p className="mt-2 text-sm text-gray-600">Imagem selecionada: {imageFile.name}</p>
+                            <p className="mt-2 text-sm text-gray-600">Imagem selecionada: {image.name}</p>
                         )}
                     </div>
 

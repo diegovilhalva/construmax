@@ -83,7 +83,7 @@ const Projects = () => {
         title: 'Condomínio Green View',
         status: 'Em andamento',
         progress: 80,
-        location: 'Florianópolis, SC',
+        location: 'Condomínio sustentável com 40 unidades, energia solar e sistema de reaproveitamento de água.',
         description: 'Condomínio sustentável com 40 unidades, energia solar e sistema de reaproveitamento de água.',
         image: image5,
         startDate: 'Set/2022',
