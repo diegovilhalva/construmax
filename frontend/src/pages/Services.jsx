@@ -6,9 +6,12 @@ import civilImg from '../assets/images/construction7.jpg';
 import publicasImg from '../assets/images/construction122 (2).jpg'
 import servicesHero from "../assets/images/services-hero.jpg"
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import Loading from '../components/Loading';
 
 const Services = () => {
   const [services,setServices] = useState([])
+  const [loading,setLoading] = useState(false)
   /*const services = [
     {
       id: 1,
@@ -76,11 +79,19 @@ const Services = () => {
   ];*/
 useEffect(() => {
    const fetchServices = async () => {
-        const res = await axios.get('http://localhost:8000/api/services')
+        try {
+          setLoading(true)
+          const res = await axios.get('http://localhost:8000/api/services')
         setServices(res.data)
+        } catch (error) {
+          toast.error("Erro ao carregar os serviços")
+        }finally{
+          setLoading(false)
+        }
       }
       fetchServices()
 },[])
+
 console.log(services)
   return (
     <div className="min-h-screen">
@@ -104,6 +115,7 @@ console.log(services)
       {/* Lista de Serviços */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {loading && <Loading  />}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {services.map((service) => (
               <div 

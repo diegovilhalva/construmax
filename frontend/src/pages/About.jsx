@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import aboutHero from '../assets/images/about-hero (1).jpg';
 import historyImage from '../assets/images/history.jpg';
@@ -7,6 +7,9 @@ import CEO from "../assets/images/ceo.jpg"
 import member1 from "../assets/images/member-1.jpg"
 import member2 from "../assets/images/pexels-pixabay-220453.jpg"
 import member3 from "../assets/images/member-3.jpg"
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import Loading from '../components/Loading';
 const About = () => {
   // Dados da empresa (serão substituídos por dados do Laravel posteriormente)
   const companyHistory = `Fundada em 1999 por Engenheiro Carlos Silva, a Construmax começou como uma pequena empreiteira com apenas 5 funcionários. Nos primeiros anos, concentramos nossos esforços em pequenas reformas e construções residenciais na região de São Paulo.
@@ -15,8 +18,10 @@ Em 2005, com a conquista de nosso primeiro grande projeto comercial, expandimos 
 
 Hoje, com mais de 200 colaboradores e 500 projetos concluídos, mantemos o mesmo compromisso com qualidade, inovação e satisfação do cliente que nos guiou desde o primeiro dia.`;
 
+const [leadershipTeam,setLeadershipTeam] = useState([])
+const [loading,setLoading] = useState(false)
   // Equipe de liderança
-  const leadershipTeam = [
+ /* const leadershipTeam = [
     {
       id: 1,
       name: 'Carlos Silva',
@@ -49,7 +54,25 @@ Hoje, com mais de 200 colaboradores e 500 projetos concluídos, mantemos o mesmo
       linkedin: '#',
       image: member3
     }
-  ];
+  ];*/
+
+  useEffect(() => {
+    (async function fetchMembers() {
+        try {
+          setLoading(true)
+          const res = await axios.get("http://localhost:8000/api/team-members",{
+            headers:{
+              "Content-Type":"application/json"
+            }
+          })
+          setLeadershipTeam(res.data)
+        } catch (error) {
+          toast.error("Ocrorreu um erro ao carregar membros da equpie")
+        }finally{
+          setLoading(false)
+        }
+    })()
+  },[])
 
   // Valores da empresa
   const companyValues = [
@@ -208,6 +231,7 @@ Hoje, com mais de 200 colaboradores e 500 projetos concluídos, mantemos o mesmo
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {loading && <Loading />}
             {leadershipTeam.map((member) => (
               <div
                 key={member.id}

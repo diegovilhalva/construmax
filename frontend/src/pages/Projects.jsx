@@ -9,13 +9,14 @@ import image6 from "../assets/images/school.jpg"
 import hero from "../assets/images/projects-hero.jpg"
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Loading from "../components/Loading"
 const Projects = () => {
   // Estados para controle da interface
   const [activeFilter, setActiveFilter] = useState('all');
   const [visibleProjects, setVisibleProjects] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
   const [projects, setProjects] = useState([])
-
+  const [loading, setLoading] = useState(false)
   // Dados dos projetos (serão substituídos por dados do Laravel posteriormente)
   /*  const projects = [
       {
@@ -144,10 +145,13 @@ const Projects = () => {
   useEffect(() => {
     (async function fetchProjects() {
       try {
+        setLoading(true)
         const res = await axios.get("http://localhost:8000/api/projects")
         setProjects(res.data)
       } catch (error) {
         toast.error("Erro ao carregar projetos")
+      } finally {
+        setLoading(false)
       }
     })()
   }, [])
@@ -170,6 +174,8 @@ const Projects = () => {
       setIsLoading(false);
     }, 800);
   };
+
+  //if (loading) return <Loading />
 
   // Verifica se há mais projetos para carregar
   const hasMoreProjects = visibleProjects < filteredProjects.length;
@@ -233,7 +239,8 @@ const Projects = () => {
       {/* Lista de Projetos */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredProjects.length === 0 ? (
+          {loading  && <Loading />}
+          {filteredProjects.length === 0 && !loading ? (
             <div className="text-center py-16">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Nenhum projeto encontrado</h3>
               <p className="text-gray-600 mb-6">Tente alterar os filtros de busca</p>
@@ -292,10 +299,10 @@ const Projects = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
                           {project.completed ? new Date(project.end_date).toLocaleDateString(
-                            'pt-BR',{
-                              month:"short",
-                              year:"numeric"
-                            }
+                            'pt-BR', {
+                            month: "short",
+                            year: "numeric"
+                          }
 
                           ) : new Date(project.end_date).toLocaleDateString(
                             "pt-BR", {
