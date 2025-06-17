@@ -277,7 +277,7 @@ const [loading,setLoading] = useState(false)
                 Estamos sempre buscando profissionais apaixonados por construção e inovação.
               </p>
               <a
-                href="/carreiras"
+                href="#"
                 className="bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-lg transition duration-300 text-lg inline-block"
               >
                 Ver Oportunidades
@@ -298,13 +298,13 @@ const [loading,setLoading] = useState(false)
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              to="/contato"
+              to="/contact"
               className="bg-white hover:bg-gray-100 text-gray-900 font-bold py-3 px-8 rounded-lg transition duration-300 text-lg"
             >
               Solicitar Orçamento
             </Link>
             <Link
-              to="/projetos"
+              to="/projects"
               className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-lg transition duration-300 text-lg hover:bg-white/10"
             >
               Ver Projetos

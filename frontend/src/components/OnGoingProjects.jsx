@@ -115,7 +115,7 @@ const OngoingProjects = () => {
                 </div>
                 
                 <Link 
-                  to={`/projetos/${project.id}`}
+                  to={`/projects`}
                   className="inline-flex items-center text-primary font-semibold hover:text-primary-dark transition-colors"
                 >
                   Acompanhar evolução

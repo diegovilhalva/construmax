@@ -401,7 +401,7 @@ const Projects = () => {
             Transforme sua visão em realidade com a qualidade e expertise Construmax.
           </p>
           <Link
-            to="/contato"
+            to="/contact"
             className="bg-white hover:bg-gray-100 text-gray-900 font-bold py-3 px-8 rounded-lg transition duration-300 text-lg inline-block"
           >
             Solicitar Orçamento

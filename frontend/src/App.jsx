@@ -13,10 +13,12 @@ import RequireAuth from "./components/RequireAuth"
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import BlogPostPage from "./pages/BlogPostPage"
+import ScrollToTop from "./components/ScrollToTop"
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <ToastContainer />
       <Routes>
 

@@ -17,10 +17,12 @@ const Blog = () => {
       try {
         setLoading(true);
         const response = await axios.get('http://localhost:8000/api/blog-posts');
-        setBlogPosts(response.data.data);
+    
+       const publishedArticles = response.data.data.filter(post => post.status === "published")
+        setBlogPosts(publishedArticles);
         
         // Extrair categorias únicas
-        const uniqueCategories = ['all', ...new Set(response.data.data.map(post => post.category))];
+        const uniqueCategories = ['all', ...new Set(publishedArticles.map(post => post.category))];
         setCategories(uniqueCategories);
       } catch (error) {
         console.error('Erro ao carregar posts:', error);
@@ -83,7 +85,7 @@ const Blog = () => {
   // Paginação
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
+  
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
