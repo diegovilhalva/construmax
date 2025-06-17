@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard"
 import RequireAuth from "./components/RequireAuth"
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import BlogPostPage from "./pages/BlogPostPage"
 
 function App() {
   return (
@@ -59,6 +60,11 @@ function App() {
             </MainLayout>
           }
         />
+        <Route path="/blog/:slug" element={
+          <MainLayout>
+            <BlogPostPage />
+          </MainLayout>
+        } />
         <Route
           path="/contact"
           element={
