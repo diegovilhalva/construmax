@@ -15,7 +15,7 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext)
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { logout } = useContext(AuthContext)
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const Dashboard = () => {
       try {
         // Simular chamada à API
         //await new Promise(resolve => setTimeout(resolve, 1000));
-
+        setLoading(true)
         const servicesReq = await axios.get("http://localhost:8000/api/services", {
           headers: {
             "Content-Type": "application/json", // Estava escrito errado como "aplication"
@@ -52,16 +52,14 @@ const Dashboard = () => {
         setProjects(resProjects.data)
 
         // Dados de exemplo para artigos do blog
-        setBlogPosts([
-          { id: 1, title: 'Tendências em Construção Sustentável', views: 1245, status: 'Publicado', created: '2023-08-12' },
-          { id: 2, title: 'Como Escolher os Melhores Materiais', views: 876, status: 'Publicado', created: '2023-07-28' },
-          { id: 3, title: 'Inovações em Estruturas Metálicas', views: 0, status: 'Rascunho', created: '2023-09-01' },
-        ]);
+
+        const resBlogPosts = await axios.get("http://localhost:8000/api/blog-posts")
+        setBlogPosts(resBlogPosts.data.data)
 
         // Dados de exemplo para depoimentos
-        const resTestimonials = await axios.get("http://localhost:8000/api/testimonials",{
-          headers:{
-            "Content-Type":"application/json"
+        const resTestimonials = await axios.get("http://localhost:8000/api/testimonials", {
+          headers: {
+            "Content-Type": "application/json"
           }
         })
 
@@ -101,16 +99,17 @@ const Dashboard = () => {
 
     return items.filter(item => new Date(item.created_at) >= pastDate).length;
   };
-  
+
 
   const projectsOnGoingCount = projects.filter((project) => project.status === "Em andamento").length
   const approvedTestimonials = testimonials.filter((t) => t.status === "aprovado")
   const serviceRecentCount = getRecentCount(services, 7);
+  const articleRecentCount = getRecentCount(blogPosts, 7)
 
   const stats = [
     { title: 'Serviços', value: services.length, change: `+${serviceRecentCount} recentes` },
     { title: 'Projetos', value: projects.length, change: `${projectsOnGoingCount} Em andamento` },
-    { title: 'Artigos', value: blogPosts.length, change: '+3 novos' },
+    { title: 'Artigos', value: blogPosts.length, change: `+${articleRecentCount} novos` },
     { title: 'Depoimentos', value: testimonials.length, change: `+${approvedTestimonials.length} aprovados` }
   ];
 

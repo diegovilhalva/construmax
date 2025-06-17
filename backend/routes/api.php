@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\adminDashboardController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BlogPostController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamMemberController;
@@ -46,3 +47,5 @@ Route::get('/blog-posts', [BlogPostController::class, 'index']);
 Route::get('/blog-posts/search', [BlogPostController::class, 'search']);
 Route::get('/blog-posts/most-viewed', [BlogPostController::class, 'mostViewed']);
 Route::get('/blog-posts/{slug}', [BlogPostController::class, 'show']);
+Route::post('/contact', [ContactController::class, 'send']);
+

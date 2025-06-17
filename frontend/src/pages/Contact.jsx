@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router';
 import contactHero from '../assets/images/contact-hero.jpg';
 import officeImage from '../assets/images/office.jpg';
-import CEO from "../assets/images/ceo.jpg"
+
 import member1 from "../assets/images/member-1.jpg"
 import member2 from "../assets/images/pexels-pixabay-220453.jpg"
+import axios from 'axios';
+import { toast } from 'react-toastify';
 const Contact = () => {
     // Estados para o formulário
     const [formData, setFormData] = useState({
@@ -69,26 +71,31 @@ const Contact = () => {
     };
 
     // Enviar formulário
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simular envio para o backend
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setSubmitSuccess(true);
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                subject: '',
-                message: ''
-            });
+        try {
+            const response = await axios.post(`http://localhost:8000/api/contact`, formData);
 
-            // Resetar mensagem de sucesso após 5 segundos
-            setTimeout(() => setSubmitSuccess(false), 5000);
-        }, 1500);
+            if (response.status === 200) {
+                setSubmitSuccess(true);
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    subject: '',
+                    message: '',
+                });
+            }
+        } catch (error) {
+            console.error('Erro ao enviar mensagem:', error);
+            toast.error('Erro ao enviar mensagem. Tente novamente.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
 
     return (
         <div className="">
@@ -283,7 +290,7 @@ const Contact = () => {
                         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
                                 <div className="md:col-span-1 flex justify-center">
-                                    <div className="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32" />
+                                    <img src={member2} className="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 object-cover" />
                                 </div>
                                 <div className="md:col-span-2">
                                     <h3 className="text-2xl font-bold text-gray-900 mb-2">Carlos Mendes</h3>
